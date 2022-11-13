@@ -225,7 +225,7 @@ not :: Bool -> Bool
 
 Boolean 'and' operator:
 >>> :t (&&)
-and :: Foldable t => t Bool -> Bool
+(&&) :: Bool -> Bool -> Bool
 
 Addition of two numbers:
 >>> :t (+)
@@ -319,7 +319,7 @@ False
 True
 
 >>> 2 ^ 10  -- power
-1023
+1024
 
 >>> not False
 True
@@ -492,7 +492,7 @@ Implement a function that returns the last digit of a given number.
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
 lastDigit :: Int -> Int
-lastDigit n = mod n 10
+lastDigit n = abs(mod n 10)
 
 
 {- |
@@ -558,8 +558,8 @@ Casual reminder about adding top-level type signatures for all functions :)
 
 mid :: Int -> Int -> Int -> Int
 mid x y z 
-  | ((x > y) && (x < z)) || ((x < y) && (x > z)) = x
-  | ((y > x) && (y < z)) || ((y < x) && (y > z)) = y
+  | (x > y && x < z) || (x < y && x > z) = x
+  | (y > x && y < z) || (y < x && y > z) = y
   | otherwise = z
 
 {- |
@@ -670,10 +670,7 @@ aren't ready for this boss yet!
 -}
 
 firstDigit :: Int -> Int
-firstDigit n = let x = floor (fraction / 10) in if x < 10 then x else firstDigit x
-    where 
-        fraction = fromIntegral n :: Float
-
+firstDigit n = let fraction = div n 10 in if fraction < 10 then fraction else firstDigit fraction
 
 {-
 You did it! Now it is time to open a pull request with your changes
